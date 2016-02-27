@@ -44,7 +44,7 @@ class syntax_plugin_spacer extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addSpecialPattern('<spacer\s+.+?>', $mode, $this->mode);
     }
 
-    function handle($match, $state, $pos, &$handler) {
+    function handle($match, $state, $pos, Doku_Handler $handler) {
         if ($state == DOKU_LEXER_SPECIAL) {
             if (preg_match('/<spacer\s+(.+?)>/', $match, $match) != 1) {
                 return false;
@@ -54,7 +54,7 @@ class syntax_plugin_spacer extends DokuWiki_Syntax_Plugin {
         return false;
     }
 
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
         if ($mode == 'xhtml') {
             $renderer->doc .= '<span style="padding-left:' . $data[0] . ';"></span>';
             return true;
